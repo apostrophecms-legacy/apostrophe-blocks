@@ -1,0 +1,47 @@
+{% macro renderBlock(page, group, block, extraClasses) %}
+  {% if page._edit %}
+    <div {% if block.id %}data-id="{{ block.id }}"{% endif %} class="{{ extraClasses }} apos-block-wrapper" data-block-wrapper>
+      <div class="apos-block-controls" data-block-controls>
+        {# I am the drag handle, nice to meet you. Style me please #}
+        <a href="#" data-block-handle>#</a>
+        <a class="apos-button" href="#" data-remove-block>Remove Block</a>
+        {% for type in types %}
+          <a class="apos-button" href="#" data-switch-block data-type="{{ type.name | e }}">{{ type.label | e }}</a>
+        {% endfor %}
+      </div>
+      <div class="apos-block" data-block>
+        {% if block.type %}
+          {{ partial(block.type, { page: page, user: user, prefix: group + '_' + block.id + '_' }) }}
+        {% else %}
+          {# This block is the template, it will have content later after cloning #}
+        {% endif %}
+      </div>
+    </div>
+  {% else %}
+    {# When not editing we render with no extra wrappers #}
+    {{ partial(block.type, { page: page, user: user, prefix: group + '_' + block.id + '_' }) }}
+  {% endif %}
+{% endmacro %}
+
+{% if page._edit %}
+  <div class="apos-block-group" data-block-group="{{ group | e }}" data-slug="{{ page.slug | e }}">
+    <div class="apos-block-group-controls">
+      {% for type in types %}
+        <a class="apos-button" href="#" data-new-block data-type="{{ type.name | e }}">+ {{ type.label | e }}</a>
+      {% endfor %}
+    </div>
+    <div class="apos-blocks" data-apos-blocks>
+      {# Existing blocks #}
+      {% for block in blocks %}
+        {{ renderBlock(page, group, block, '') }}
+      {% endfor %}
+      {# This is a hidden DOM template which will be used by JS to build new blocks #}
+      {{ renderBlock(page, group, {}, 'apos-template') }}
+    </div>
+  </div>
+{% else %}
+  {# When not editing we render with no extra wrappers #}
+  {% for block in blocks %}
+    {{ renderBlock(page, group, block, '') }}
+  {% endfor %}
+{% endif %}
