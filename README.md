@@ -43,9 +43,9 @@ OK, you caught me. That's not really everything. You don't want to use my crappy
 
 So, let's make our own.
 
-First create a templates folder for your project's overrides of the blocks module:
+First create a `views` folder for your project's overrides of the blocks module:
 
-mkdir -p lib/modules/apostrophe-blocks/templates
+mkdir -p lib/modules/apostrophe-blocks/views
 
 Now, in that folder, create `one.html` and paste in:
 
