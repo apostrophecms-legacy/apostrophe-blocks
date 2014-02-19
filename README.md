@@ -66,6 +66,12 @@ Much more exciting, let's create `two.html`:
 
 See what I did there? Each block template can contain its own calls to `aposArea`. All you have to do is **always remember to append your own area name to `prefix`.* If you forget to do this, all your blocks will show the same content, and you will be sad.
 
+Also works with Singletons:
+
+```twig
+{{ aposSingleton(page, prefix + 'marquee', 'slideshow', {}) }}
+```
+
 "Hey, my two columns aren't showing up as columns!" Well no, of course not, I didn't write any CSS for those `left` and `right` classes on the wrapper `div` elements. It's your job to do that in your project's `site.less` file.
 
 ## Limitations
