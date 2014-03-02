@@ -3,8 +3,10 @@
     <div {% if block.id %}data-id="{{ block.id }}"{% endif %} class="{{ extraClasses }} apos-block-wrapper" data-block-wrapper>
       <div class="apos-block-controls" data-block-controls>
         {# I am the drag handle, nice to meet you. Style me please #}
-        <a href="#" data-block-handle>#</a>
-        <a class="apos-button" href="#" data-remove-block>Remove Block</a>
+        <a href="#" data-block-handle><i class="icon-move"></i></a>
+        <a class="apos-button" href="#" data-remove-block><i class="icon-trash"></i></a>
+        {# The switch-block menu is being hidden in editor.less right now #}
+        <a class="apos-button" href="#" data-switch-block-menu><i class="icon-list"></i></a>
         {% for type in types %}
           <a class="apos-button" href="#" data-switch-block data-type="{{ type.name | e }}">{{ type.label | e }}</a>
         {% endfor %}
