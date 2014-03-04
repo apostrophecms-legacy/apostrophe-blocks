@@ -3,13 +3,24 @@
     <div {% if block.id %}data-id="{{ block.id }}"{% endif %} class="{{ extraClasses }} apos-block-wrapper" data-block-wrapper>
       <div class="apos-block-controls" data-block-controls>
         {# I am the drag handle, nice to meet you. Style me please #}
-        <a href="#" data-block-handle><i class="icon-move"></i></a>
+        <a class="apos-button" href="#" data-block-handle><i class="icon-move"></i></a>
         <a class="apos-button" href="#" data-remove-block><i class="icon-trash"></i></a>
-        {# The switch-block menu is being hidden in editor.less right now #}
-        <a class="apos-button" href="#" data-switch-block-menu><i class="icon-list"></i></a>
-        {% for type in types %}
-          <a class="apos-button" href="#" data-switch-block data-type="{{ type.name | e }}">{{ type.label | e }}</a>
-        {% endfor %}
+
+
+        <ul {% if block.id %}data-id="{{ block.id }}"{% endif %} class="apos-ui-container apos-ui apos-ui-dropdown apos-button" href="#" data-content-block-menu >
+          <li>
+          <span data-content-block-menu-toggle><i class="icon-reorder">&nbsp;Layout</i></span>
+
+            <ul {% if block.id %}data-id="{{ block.id }}"{% endif %} class="apos-editor2-content-menu-options apos-ui-menu" data-content-block-menu-options>
+
+            {% for type in types %}
+              <li class="apos-button" href="#" data-switch-block data-type="{{ type.name | e }}">{{ type.label | e }}</li>
+            {% endfor %}
+
+            </ul>
+
+          </li>
+        </ul>
       </div>
       <div class="apos-block" data-block>
         {% if block.type %}
