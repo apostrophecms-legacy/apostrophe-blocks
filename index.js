@@ -264,8 +264,6 @@ function Blocks(options, callback) {
     });
   });
 
-  self.serveAssets();
-
   // Allows the "page versions" dialog to say something about
   // blocks coming and going
   self._apos.on('diff', function(page, lines) {
