@@ -78,6 +78,12 @@ function AposBlocks() {
       );
       return false;
     });
+
+    // DROPDOWN TOGGLE
+    $el.on('click', '[data-content-block-menu]', function() {
+      $(this).find('[data-content-block-menu-options]').toggle(1);
+    });
+
     $el.find('[data-apos-blocks]').sortable({
       handle: '[data-block-handle]',
       stop: function() {

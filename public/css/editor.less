@@ -1,0 +1,257 @@
+
+// --------- REDUNDANT APOS-UI STYLES -------------------------- //
+
+@apos-base: #dd3226;
+
+@apos-lighten-10: lighten(@apos-base, 8%);
+
+@apos-shade-5: darken(@apos-base, 3%);
+@apos-shade-10: darken(@apos-base, 10%);
+
+.transition(@props)
+{
+  -moz-transition: @props;
+  -webkit-transition: @props;
+  -ms-transition: @props;
+  -o-transition: @props;
+  transition: @props;
+}
+
+/* GREYS */
+
+.apos-transition(@property, @time, @ease)
+{
+  -webkit-transition: @property @time @ease;  
+  -moz-transition: @property @time @ease;  
+  transition: @property @time @ease;
+}
+
+.apos-bg-gradient(@from, @to) {
+  background-color: @from;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(@from), to(@to));
+  background: -webkit-linear-gradient(top, @from, @to);
+  background: -moz-linear-gradient(top, @from, @to);
+  background: -ms-linear-gradient(top, @from, @to);
+  background-size: 100% 100px;
+}
+
+.apos-ui
+{
+  text-transform: uppercase;
+  font-family: 'Cabin';  
+  letter-spacing: 0.25em;
+  font-size: 11px;
+  font-weight: bold;  
+}
+
+.apos-singleton .apos-ui-container
+{
+  position: absolute;
+  z-index: 800;
+}
+.apos-ui-container
+{ 
+  position: relative;
+  min-width: 45px;
+  display: inline-block;
+  background: rgba(255,255,255,0.25);
+  padding: 4px;
+  -webkit-border-radius: 2px;
+          border-radius: 2px;
+  -webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+          box-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+  
+  &:empty
+  {
+    display: none;
+  }
+
+  &.left, &.right, &.center
+  {
+    position: absolute;
+    z-index: 899;
+  }
+  &.left
+  {
+    top: 8px;
+    left: 8px;
+  }
+
+  &.right
+  {
+    right: 8px;
+    top: 8px;
+  }
+
+  &.center
+  {
+    top: 50%;
+    margin-top: -16px;
+  }
+}
+.apos-ui-container .apos-ui-btn,
+.apos-ui-container .apos-button
+{
+  .apos-ui;
+  color: white;
+  display: inline-block;
+  min-width: 36px;
+  line-height: 14px;
+
+  margin-right: 0px;
+  
+  text-shadow: 0.2em 0.1em rgba(0,0,0,0.2);
+  padding: 0.65em 1em;
+  
+  text-align: center;
+  cursor: pointer;
+
+  .apos-bg-gradient(@apos-base, @apos-lighten-10);
+  
+  border: 1px solid @apos-shade-5;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+
+
+  &:hover
+  {
+    .apos-bg-gradient(@apos-shade-5, @apos-base);
+  }
+
+  &:active,
+  &.apos-active
+  {
+    .apos-bg-gradient(@apos-shade-10, @apos-base);
+  }
+}
+
+
+.apos-item-actions
+{
+  opacity: 0;
+  .apos-transition(opacity, 0.1s, linear);
+}
+
+// --- DROPDOWN ----------------------//
+
+.apos-ui-dropdown
+{
+  position: relative;
+  z-index: 900;
+  margin-bottom: 10px;
+
+  .apos-ui-menu
+  {
+    z-index: 2;
+    position: absolute;
+    overflow: hidden;
+    -webkit-border-radius: 2px;
+            border-radius: 2px;
+    
+    padding-top: 16px;
+    
+    &:before
+    {
+      content: '';
+      position: absolute;
+      border: 6px solid transparent;
+      border-bottom: 6px solid #282E2D;
+      top: 4px;
+      left: 12px;
+    }
+
+    li
+    {
+      min-width: 200px;
+      background: #282E2D;
+      cursor: pointer;
+      &:hover { background: #1B1D1C; }
+      border-bottom: 1px solid #393D3D;
+      color: #fff;
+      line-height: 0;
+      padding: 12px;
+      &:last-child
+      {
+        border-bottom: 0px;
+      }
+      i
+      {
+        font-size: 16px;
+        line-height: 15px;
+        margin-right: 2px;
+      }
+    }
+  }
+}
+
+
+
+// --------- BLOCK SPECIFIC STYLES -------------------------- //
+
+
+[data-new-block]{
+	.apos-ui;
+	letter-spacing: 0.01em;
+}
+.apos-block-wrapper 
+{
+	padding: 1px;
+}
+.apos-block-wrapper:hover 
+{
+	padding: 0px;
+	border: 1px dashed rgba(36, 153, 162, 0.8);
+}
+.apos-block-controls,
+.apos-block-group-controls
+{
+	.apos-ui-container;
+	.apos-item-actions;
+	.left;
+	position: relative;
+	background-color: rgba(0, 0, 0, 0.1);
+	top: 0px;
+	margin: 0.5em 0;
+	opacity: 1;
+	padding-right: 0px;
+	.apos-button:hover
+	{
+    color: white;
+		background-color: darken(rgb(36, 153, 162), 10%);
+	}
+/*  .apos-button[data-remove-block]:hover
+  {
+    background-color: darken(#FF3333, 10%);
+  }*/
+}
+
+[data-block-handle],[data-remove-block],[data-content-block-menu],[data-new-block]{
+	color: white;
+	background-color: rgb(36, 153, 162);
+	border-radius: 4px;
+	margin: 0.05em;
+	padding: 0.3em;
+  min-width: 1em;
+	i {
+		display: inline-block;
+		padding: 0.5em;
+	}
+}
+[data-content-block-menu]
+{
+  top: -2px;
+}
+[data-content-block-menu-options]
+{
+  position: relative;
+  z-index: 901;
+}
+.apos-button[data-switch-block]
+{
+  width: 250px; // fix hard code
+  border:  1px solid rgb(36, 153, 162);
+}
+.show-block-types
+{
+  height: auto;
+}

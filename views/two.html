@@ -4,17 +4,17 @@
 {# This inline style tag is just for the example, you should declare your #}
 {# styles in a less file #}
 <style type="text/css">
-  .left, .right {
+  .left-column, .right-column {
     float: left;
     width: 48%;
     margin: 0 1% 0 1%;
   }
 </style>
 
-<div class="left">
+<div class="left-column">
   {{ aposArea(page, prefix + 'left') }}
 </div>
-<div class="right">
+<div class="right-column">
   {{ aposArea(page, prefix + 'right') }}
 </div>
 {# I'm just a backend programmer. I bet you can avoid this clumsy way of clearing #}

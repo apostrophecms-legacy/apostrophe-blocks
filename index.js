@@ -19,6 +19,7 @@ function Blocks(options, callback) {
   self._apos.mixinModuleAssets(self, 'blocks', __dirname, options);
 
   self.pushAsset('script', 'editor', { when: 'user' });
+  self.pushAsset('stylesheet', 'editor', { when: 'user' });
 
   // Typical syntax: self._aposBlocks(page, 'groupname', [ 'typeone', 'typetwo'])
 
