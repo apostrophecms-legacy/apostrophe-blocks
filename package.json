@@ -20,7 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "async": "~0.2.6",
-    "underscore": "~1.4.4",
+    "lodash": "2.4.x",
     "extend": "~1.2.1"
   }
 }
