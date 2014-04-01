@@ -21,19 +21,24 @@ function Blocks(options, callback) {
   self.pushAsset('script', 'editor', { when: 'user' });
   self.pushAsset('stylesheet', 'editor', { when: 'user' });
 
-  // Typical syntax: self._aposBlocks(page, 'groupname', [ 'typeone', 'typetwo'])
+  // Typical syntax: aposBlocks(page, 'groupname', [ 'typeone', 'typetwo'])
 
-  // Also allowed: self._aposBlocks(page, 'groupname', { types: [ 'typeone', 'typetwo' ] })
+  // Also allowed: aposBlocks(page, 'groupname', { types: [ 'typeone', 'typetwo' ] })
 
-  // And if you must: self._aposBlocks({ page: page, group: 'groupname', types: [ 'typeone', 'typetwo'] })
+  // And if you must: aposBlocks({ page: page, group: 'groupname', types: [ 'typeone', 'typetwo'] })
 
-  // You may supply an additional options object after the first and second syntaxes,
-  // however as of this writing there are no additional options defined.
+  // You may pass additional data which is visible to the blocks.html template:
+  //
+  // aposBlocks(page, 'groupname', [ 'typeone', 'typetwo'], { user: user, permissions: permissions })
+  //
+  // Newly added blocks do NOT see such additional data, however they DO see "user" and "permissions"
+  // because these are explicitly passed to new blocks. Currently newly added blocks don't see any
+  // joins or custom page loader results in the page object either.
 
   self._apos.addLocal('aposBlocks', function() {
     var options = {};
     if (!arguments.length) {
-      throw new Error('You must pass at least one argument to self._aposBlocks. Typical usage is self._aposBlocks(page, "body", [ "blockTypeOne", "blockTypeTwo"]).');
+      throw new Error('You must pass at least one argument to aposBlocks. Typical usage is aposBlocks(page, "body", [ "blockTypeOne", "blockTypeTwo"]).');
     }
     if (arguments.length === 1) {
       options = arguments[0];
@@ -51,14 +56,13 @@ function Blocks(options, callback) {
         }
       }
     }
-    return self.render('blocks', {
-      blocks: (options.page.blockGroups && options.page.blockGroups[options.group] && options.page.blockGroups[options.group].blocks) || [],
-      page: options.page,
-      group: options.group,
-      types: _.filter(self._types, function(type) {
-        return _.contains(options.types, type.name);
-      })
+    var data = {};
+    _.merge(data, options);
+    data.blocks = (options.page.blockGroups && options.page.blockGroups[options.group] && options.page.blockGroups[options.group].blocks) || [];
+    data.types = _.filter(self._types, function(type) {
+      return _.contains(options.types, type.name);
     });
+    return self.render('blocks', data);
   });
 
   self._app.post(self._action + '/new', function(req, res) {
@@ -100,6 +104,10 @@ function Blocks(options, callback) {
             page: page,
             type: type,
             group: group,
+            // Make basic user and permissions info available to ease the pain of
+            // not having proper page loaders running for new blocks yet
+            user: req.user,
+            permissions: (req.user && req.user.permissions) || {},
             id: id,
             prefix: group + '_' + id + '_'
           })
