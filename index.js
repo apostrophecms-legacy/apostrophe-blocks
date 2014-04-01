@@ -49,10 +49,10 @@ function Blocks(options, callback) {
         if (Array.isArray(arguments[2])) {
           options.types = arguments[2];
           if (arguments[3]) {
-            extend(true, options, arguments[3]);
+            _.merge(options, arguments[3]);
           }
         } else {
-          extend(true, options, arguments[2]);
+          _.merge(options, arguments[2]);
         }
       }
     }
@@ -110,7 +110,7 @@ function Blocks(options, callback) {
             permissions: (req.user && req.user.permissions) || {},
             id: id,
             prefix: group + '_' + id + '_'
-          })
+          }, req)
         };
         return callback(null);
       },
@@ -178,7 +178,7 @@ function Blocks(options, callback) {
             group: group,
             id: id,
             prefix: group + '_' + id + '_'
-          })
+          }, req)
         };
         return callback(null);
       },
