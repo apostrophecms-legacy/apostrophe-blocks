@@ -1,20 +1,20 @@
 {% macro renderBlock(page, group, block, extraClasses) %}
   {% if page._edit %}
     <div {% if block.id %}data-id="{{ block.id }}"{% endif %} class="{{ extraClasses }} apos-block-wrapper" data-block-wrapper>
-      <div class="apos-block-controls" data-block-controls>
+      <div class="apos-block-controls apos-ui-container" data-block-controls>
         {# I am the drag handle, nice to meet you. Style me please #}
-        <a class="apos-button" href="#" data-block-handle><i class="icon-move"></i></a>
-        <a class="apos-button" href="#" data-remove-block><i class="icon-trash"></i></a>
+        <a class="apos-button apos-ui-btn" href="#" data-block-handle><i class="icon-move"></i></a>
+        <a class="apos-button apos-ui-btn" href="#" data-remove-block><i class="icon-trash"></i></a>
 
 
-        <ul {% if block.id %}data-id="{{ block.id }}"{% endif %} class="apos-ui-container apos-ui apos-ui-dropdown apos-button" href="#" data-content-block-menu >
+        <ul {% if block.id %}data-id="{{ block.id }}"{% endif %} class="apos-ui-container apos-ui apos-ui-dropdown apos-ui-btn apos-button" href="#" data-content-block-menu >
           <li>
-          <span data-content-block-menu-toggle><i class="icon-reorder">&nbsp;Layout</i></span>
+          <span data-content-block-menu-toggle><i class="icon-reorder"></i>&nbsp;Layout</span>
 
             <ul {% if block.id %}data-id="{{ block.id }}"{% endif %} class="apos-editor2-content-menu-options apos-ui-menu" data-content-block-menu-options>
 
             {% for type in types %}
-              <li class="apos-button" href="#" data-switch-block data-type="{{ type.name | e }}">{{ type.label | e }}</li>
+              <li href="#" data-switch-block data-type="{{ type.name | e }}">{{ type.label | e }}</li>
             {% endfor %}
 
             </ul>
@@ -38,9 +38,9 @@
 
 {% if page._edit %}
   <div class="apos-block-group" data-block-group="{{ group | e }}" data-slug="{{ page.slug | e }}">
-    <div class="apos-block-group-controls">
+    <div class="apos-block-group-controls apos-ui-container">
       {% for type in types %}
-        <a class="apos-button" href="#" data-new-block data-type="{{ type.name | e }}">+ {{ type.label | e }}</a>
+        <a class="apos-button apos-ui-button" href="#" data-new-block data-type="{{ type.name | e }}">+ {{ type.label | e }}</a>
       {% endfor %}
     </div>
     <div class="apos-blocks" data-apos-blocks>
