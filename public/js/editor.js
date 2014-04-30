@@ -105,6 +105,10 @@ function AposBlocks() {
         );
       }
     });
+    $el.on('click', '[data-content-blocks-menu]', function() {
+      console.log($(this));
+      $(this).next('[data-content-blocks-menu-options]').toggle(1);
+    });
   };
 
   // We just did something that might introduce new areas into the DOM, so
@@ -132,6 +136,8 @@ function AposBlocks() {
       aposBlocks.enableAll();
     });
   };
+
+
 }
 
 var aposBlocks = new AposBlocks();
