@@ -105,9 +105,17 @@ function AposBlocks() {
         );
       }
     });
-    $el.on('click', '[data-content-blocks-menu]', function() {
-      console.log($(this));
+
+    // Having all three of these functions seems janky...
+    $el.on('click', '[data-content-blocks-menu]', function(e) {
+      e.stopPropagation();
       $(this).next('[data-content-blocks-menu-options]').toggle(1);
+    });
+    $el.on('click', function() {
+      $('[data-content-blocks-menu-options]').toggle(false);
+    });
+    $el.on('click', '[data-new-block]', function() {
+      $('[data-content-blocks-menu-options]').toggle(false);
     });
   };
 
