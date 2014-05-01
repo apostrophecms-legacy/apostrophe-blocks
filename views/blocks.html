@@ -11,7 +11,7 @@
           <li>
           <span data-content-block-menu-toggle><i class="icon-reorder"></i>&nbsp;Layout</span>
 
-            <ul {% if block.id %}data-id="{{ block.id }}"{% endif %} class="apos-editor2-content-menu-options apos-ui-menu" data-content-block-menu-options>
+            <ul {% if block.id %}data-id="{{ block.id }}"{% endif %} class="apos-editor2-content-menu-options apos-block-menu-options apos-ui-menu" data-content-block-menu-options>
 
             {% for type in types %}
               <li href="#" data-switch-block data-type="{{ type.name | e }}">{{ type.label | e }}</li>

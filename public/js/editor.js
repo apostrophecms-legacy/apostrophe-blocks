@@ -80,8 +80,22 @@ function AposBlocks() {
     });
 
     // DROPDOWN TOGGLE
+    $('body').on('aposCloseMenus', function() {
+      $('[data-content-block-menu-options]').toggleClass('open', false);
+      $('.apos-block-controls').toggleClass('open', false);
+    });
+
     $el.on('click', '[data-content-block-menu]', function() {
-      $(this).find('[data-content-block-menu-options]').toggle(1);
+      var opened;
+      if($(this).find('[data-content-block-menu-options]').hasClass('open')){
+        opened = true;
+      }
+      $('body').trigger('aposCloseMenus');
+      if (!opened) {
+        $(this).closest('.apos-block-controls').toggleClass('open', true);
+        $(this).find('[data-content-block-menu-options]').toggleClass('open', true);
+      }
+
     });
 
     $el.find('[data-apos-blocks]').sortable({
@@ -106,17 +120,28 @@ function AposBlocks() {
       }
     });
 
-    // Having all three of these functions seems janky...
-    $el.on('click', '[data-content-blocks-menu]', function(e) {
-      e.stopPropagation();
-      $(this).next('[data-content-blocks-menu-options]').toggle(1);
-    });
-    $el.on('click', function() {
-      $('[data-content-blocks-menu-options]').toggle(false);
+    $el.on('click', '[data-content-blocks-menu]', function() {
+      var opened;
+      //Still need to figure out how we're going to close the thing.
+      if ($(this).next('[data-content-blocks-menu-options]').hasClass('open')) {
+        opened = true;
+      }
+      $('body').trigger('aposCloseMenus');
+      if (!opened) {
+        $(this).closest('.apos-block-group-controls').toggleClass('open');
+        $(this).next('[data-content-blocks-menu-options]').toggleClass('open', true);
+      }
+
     });
     $el.on('click', '[data-new-block]', function() {
-      $('[data-content-blocks-menu-options]').toggle(false);
+      $('body').trigger('aposCloseMenus');
     });
+    $('body').on('aposCloseMenus', function() {
+      $('[data-content-blocks-menu-options]').toggleClass('open', false);
+      $('.apos-block-group-controls').toggleClass('open', false);
+      $('[data-content-blocks-menu]').toggleClass('open', false);
+    });
+
   };
 
   // We just did something that might introduce new areas into the DOM, so

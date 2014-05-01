@@ -138,6 +138,11 @@
   display: none;
   .apos-ui-dropdown-container('before');
 
+  &.open
+  {
+    display: block;
+  }
+  
   li
   {
     .apos-ui-dropdown-item();
@@ -174,7 +179,12 @@
 	margin: 0.5em 0;
 	opacity: 1;
 	//padding-right: 0px;
-  z-index: 905;
+  z-index: 899;
+  &.open
+  {
+    // When we're open, bring us to the front.
+    z-index:901;
+  }
 	.apos-button:hover
 	{
     color: white;
