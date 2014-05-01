@@ -18,6 +18,89 @@
 
 /* GREYS */
 
+
+/* ---------------------------------------------------------------*/
+/* ---------------------------------------------------------------*/
+// THIS IS A PATCH!!!!!
+/* ---------------------------------------------------------------*/
+/* ---------------------------------------------------------------*/
+.apos-ui-dropdown-container(@arrow) {
+
+  position:absolute !important;
+  min-width: 150px; //Does this seem sensible?
+  min-height: 100%;
+  .apos-bg-gradient(@apos-grey5, @apos-grey);
+  background-size: 100% 100%;
+  overflow: visible !important;
+  -webkit-border-radius: 3px;
+          border-radius: 3px;
+
+  & when (@arrow = 'before') {
+    &:before
+    {
+      display: block;
+      content: '';
+      position: absolute;
+      border:10px solid transparent;
+      border-bottom: 10px solid @apos-grey5;
+      top: -20px;
+      left: 15px;
+    }
+  }
+
+  & when (@arrow = 'after') {
+    &:after
+    {
+      content: "";
+      border: transparent 10px solid ;
+      border-top: @apos-grey 10px solid;
+      position:absolute;
+      bottom: -20px;
+      left: 15px;
+      display: block;
+    }
+  }
+
+}
+
+.apos-ui-dropdown-item(){
+  background: transparent !important;
+  color: @apos-grey-blue !important;
+  -webkit-transition: all .1s ease;
+  -moz-transition: all .1s ease;
+  width: 100%;
+  margin-right: 0px;
+  padding: 10px 15px;
+  font-size: 12px;
+  cursor: pointer;
+  line-height: 2;
+  border-bottom: 1px solid @apos-grey10;
+  &:hover
+  {
+    color: #fff !important;
+    background: @apos-grey-10 !important;
+    text-shadow: none;
+  }
+  &:first-child
+  {
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+  }
+  &:last-child
+  {
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-bottom: none;
+  }
+  i
+  {
+    font-size: 16px;
+    line-height: 15px;
+    margin-right: 2px;
+  }
+}
+
+
 .apos-transition(@property, @time, @ease)
 {
   -webkit-transition: @property @time @ease;
@@ -142,7 +225,7 @@
   {
     display: block;
   }
-  
+
   li
   {
     .apos-ui-dropdown-item();
