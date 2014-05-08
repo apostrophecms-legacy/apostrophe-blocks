@@ -85,17 +85,20 @@ function AposBlocks() {
       $('.apos-block-controls').toggleClass('open', false);
     });
 
-    $el.on('click', '[data-content-block-menu]', function() {
+    $el.on('click', '[data-content-block-menu-toggle]', function() {
       var opened;
-      if($(this).find('[data-content-block-menu-options]').hasClass('open')){
+      if($(this).next('[data-content-block-menu-options]').hasClass('open')){
         opened = true;
       }
       $('body').trigger('aposCloseMenus');
       if (!opened) {
         $(this).closest('.apos-block-controls').toggleClass('open', true);
-        $(this).find('[data-content-block-menu-options]').toggleClass('open', true);
+        $(this).next('[data-content-block-menu-options]').toggleClass('open', true);
       }
+    });
 
+    $el.on('click', '[data-switch-block]', function() {
+      $('body').trigger('aposCloseMenus');
     });
 
     $el.find('[data-apos-blocks]').sortable({
@@ -122,7 +125,6 @@ function AposBlocks() {
 
     $el.on('click', '[data-content-blocks-menu]', function() {
       var opened;
-      //Still need to figure out how we're going to close the thing.
       if ($(this).next('[data-content-blocks-menu-options]').hasClass('open')) {
         opened = true;
       }
