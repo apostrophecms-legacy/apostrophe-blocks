@@ -99,13 +99,54 @@ function AposBlocks() {
 
     $el.on('click', '[data-move-block]', function() {
       var $wrapper = $(this).parents('[data-block-wrapper]');
-      if ($(this).attr('data-move-block') === 'up') {
+      var direction = $(this).attr('data-move-block');
+
+      if (direction === 'up') {
         $wrapper.prev().before($wrapper);
-      } else {
+      } else if (direction === 'down') {
         $wrapper.next().after($wrapper);
+      } else if (direction === 'top') {
+        $wrapper.parent().children(':first').before($wrapper);
+      } else if (direction === 'bottom') {
+        $wrapper.parent().children(':last').after($wrapper);
       }
+
       self.saveOrder($el);
       return false;
+    });
+
+    // listen for editor modifier keys
+    var modifierOn = false;
+    $('body').on('keydown', function(e) {
+      if (e.keyCode === 16) {
+        $('[data-move-block]').each(function() {
+          $self = $(this);
+          if ($self.attr('data-move-block') === 'up') {
+            $self.children('i').toggleClass('icon-double-angle-up');
+            $self.attr('data-move-block', 'top');
+          } else if ($self.attr('data-move-block') === 'down') {
+            $self.children('i').toggleClass('icon-double-angle-down');
+            $self.attr('data-move-block', 'bottom');
+          }
+          modifierOn = true;
+        });
+      }
+    });
+
+    $('body').on('keyup', function(e) {
+      if (modifierOn === true) {
+        $('[data-move-block]').each(function() {
+          $self = $(this);
+          $self.children('i').removeClass('icon-double-angle-up');
+          $self.children('i').removeClass('icon-double-angle-down');
+          if ($self.attr('data-move-block') === 'top') {
+            $self.attr('data-move-block', 'up');
+          } else if ($self.attr('data-move-block') === 'bottom') {
+            $self.attr('data-move-block', 'down');
+          }
+          modifierOn = false;
+        });
+      }
     });
 
     $el.on('click', '[data-switch-block]', function() {
