@@ -97,6 +97,17 @@ function AposBlocks() {
       }
     });
 
+    $el.on('click', '[data-move-block]', function() {
+      var $wrapper = $(this).parents('[data-block-wrapper]');
+      if ($(this).attr('data-move-block') === 'up') {
+        $wrapper.prev().before($wrapper);
+      } else {
+        $wrapper.next().after($wrapper);
+      }
+      self.saveOrder($el);
+      return false;
+    });
+
     $el.on('click', '[data-switch-block]', function() {
       $('body').trigger('aposCloseMenus');
     });
@@ -104,22 +115,7 @@ function AposBlocks() {
     $el.find('[data-apos-blocks]').sortable({
       handle: '[data-block-handle]',
       stop: function() {
-        var ids = [];
-        $el.find('[data-block-wrapper]').each(function() {
-          ids.push($(this).attr('data-id'));
-        });
-        $.jsonCall(
-          '/apos-blocks/order',
-          {
-            group: group,
-            ids: ids,
-            slug: slug
-          }, function(result) {
-            if (result.status !== 'ok') {
-              alert(result.status);
-            }
-          }
-        );
+        self.saveOrder($el);
       }
     });
 
@@ -164,6 +160,26 @@ function AposBlocks() {
       self.enable($(this));
     });
   };
+
+  self.saveOrder = function($el) {
+    var ids = [];
+    $el.find('[data-block-wrapper]').each(function() {
+      ids.push($(this).attr('data-id'));
+    });
+    $.jsonCall(
+      '/apos-blocks/order',
+      {
+        group: $el.attr('data-block-group'),
+        ids: ids,
+        slug: $el.attr('data-slug')
+      }, function(result) {
+        if (result.status !== 'ok') {
+          alert(result.status);
+        }
+      }
+    );
+    // return;
+  }
 
   self.auto = function() {
     // For blocks present at page load
