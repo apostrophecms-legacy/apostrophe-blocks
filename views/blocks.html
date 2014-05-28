@@ -39,7 +39,7 @@
 {% if page._edit %}
   <div class="apos-block-group" data-block-group="{{ group | e }}" data-slug="{{ page.slug | e }}">
     <div class="apos-block-group-controls apos-ui-container">
-      <span class="apos-ui-btn" data-content-blocks-menu=""><i class="icon-plus"></i> Add Block  </span>
+      <span class="apos-ui-btn" data-content-blocks-menu=""><i class="icon-plus"></i> Add {{(groupLabel | e) or ('Block')}}  </span>
       <ul class="apos-block-menu-options apos-ui-menu" data-content-blocks-menu-options="">
         {% for type in types %}
           <li data-new-block data-type="{{ type.name | e }}"> {{ type.label | e }}</li>

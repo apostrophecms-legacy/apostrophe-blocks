@@ -29,7 +29,7 @@ function Blocks(options, callback) {
 
   // You may pass additional data which is visible to the blocks.html template:
   //
-  // aposBlocks(page, 'groupname', [ 'typeone', 'typetwo'], { user: user, permissions: permissions })
+  // aposBlocks(page, 'groupname', [ 'typeone', 'typetwo'], { user: user, permissions: permissions, groupLabel: 'Lego Block' })
   //
   // Newly added blocks do NOT see such additional data, however they DO see "user" and "permissions"
   // because these are explicitly passed to new blocks. Currently newly added blocks don't see any
@@ -62,6 +62,7 @@ function Blocks(options, callback) {
     data.types = _.filter(self._types, function(type) {
       return _.contains(options.types, type.name);
     });
+    data.groupLabel = options.groupLabel;
     return self.render('blocks', data);
   });
 
