@@ -42,7 +42,10 @@
       <span class="apos-ui-btn" data-content-blocks-menu=""><i class="icon-plus"></i> Add {{(groupLabel | e) or ('Block')}}  </span>
       <ul class="apos-block-menu-options apos-ui-menu" data-content-blocks-menu-options="">
         {% for type in types %}
-          <li data-new-block data-type="{{ type.name | e }}"> {{ type.label | e }}</li>
+          <li data-new-block data-type="{{ type.name | e }}">
+            {% if type.icon %}<i class="icon {{type.icon}}"></i>{% endif %}
+            {{ type.label | e }}
+          </li>
 {#           <a class="apos-button apos-ui-button" href="#" >+ {{ type.label | e }}</a> #}
         {% endfor %}
       </ul>
