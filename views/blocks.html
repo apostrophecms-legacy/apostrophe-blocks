@@ -7,9 +7,9 @@
           #}<span class="apos-button apos-ui-btn apos-ui-move-up" data-move-block="up"><i class="icon-arrow-up"></i></span>{#
           #}<span class="apos-button apos-ui-btn apos-ui-move-down" data-move-block="down"><i class="icon-arrow-down"></i></span>
         </span>
-        <ul {% if block.id %}data-id="{{ block.id }}"{% endif %} class="apos-ui-container apos-ui apos-ui-dropdown apos-ui-btn apos-button" href="#" data-content-block-menu >
+        <ul {% if block.id %}data-id="{{ block.id }}"{% endif %} class="apos-blocks-menu apos-ui  " href="#">
           <li>
-          <span data-content-block-menu-toggle><i class="icon-reorder"></i>&nbsp;Layout</span>
+          <span data-content-block-menu-toggle class="apos-ui-btn apos-button apos-ui-dropdown"><i class="icon-reorder"></i>&nbsp;Layout</span>
             <ul {% if block.id %}data-id="{{ block.id }}"{% endif %} class="apos-editor2-content-menu-options apos-block-menu-options apos-ui-menu" data-content-block-menu-options>
             {% for type in types %}
               <li href="#" data-switch-block data-type="{{ type.name | e }}">
