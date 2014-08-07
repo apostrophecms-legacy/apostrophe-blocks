@@ -1,5 +1,53 @@
 function AposBlocks() {
   var self = this;
+
+  $(function() {
+    // body event handlers must not be inside enable where
+    // they would get added over and over for each new $el,
+    // resulting in unexpected behavior. There is only one body.
+    // -Tom
+    $('body').on('aposCloseMenus', function() {
+      $('[data-content-blocks-menu-options]').toggleClass('open', false);
+      $('[data-content-block-menu-options]').toggleClass('open', false);
+      $('.apos-block-group-controls').toggleClass('open', false);
+      $('[data-content-blocks-menu]').toggleClass('open', false);
+    });
+
+    // listen for editor modifier keys
+    var modifierOn = false;
+    $('body').on('keydown', function(e) {
+      if (e.keyCode === 16) {
+        $('[data-move-block]').each(function() {
+          var $self = $(this);
+          if ($self.attr('data-move-block') === 'up') {
+            $self.children('i').toggleClass('icon-double-angle-up');
+            $self.attr('data-move-block', 'top');
+          } else if ($self.attr('data-move-block') === 'down') {
+            $self.children('i').toggleClass('icon-double-angle-down');
+            $self.attr('data-move-block', 'bottom');
+          }
+          modifierOn = true;
+        });
+      }
+    });
+
+    $('body').on('keyup', function(e) {
+      if (modifierOn === true) {
+        $('[data-move-block]').each(function() {
+          var $self = $(this);
+          $self.children('i').removeClass('icon-double-angle-up');
+          $self.children('i').removeClass('icon-double-angle-down');
+          if ($self.attr('data-move-block') === 'top') {
+            $self.attr('data-move-block', 'up');
+          } else if ($self.attr('data-move-block') === 'bottom') {
+            $self.attr('data-move-block', 'down');
+          }
+          modifierOn = false;
+        });
+      }
+    });
+  });
+
   self.enable = function($el) {
     if ($el.data('aposBlocksEnabled')) {
       return;
@@ -79,12 +127,6 @@ function AposBlocks() {
       return false;
     });
 
-    // DROPDOWN TOGGLE
-    $('body').on('aposCloseMenus', function() {
-      $('[data-content-block-menu-options]').toggleClass('open', false);
-      $('.apos-block-controls').toggleClass('open', false);
-    });
-
     $el.on('click', '[data-content-block-menu-toggle]', function() {
       var opened;
       if($(this).next('[data-content-block-menu-options]').hasClass('open')){
@@ -115,40 +157,6 @@ function AposBlocks() {
       return false;
     });
 
-    // listen for editor modifier keys
-    var modifierOn = false;
-    $('body').on('keydown', function(e) {
-      if (e.keyCode === 16) {
-        $('[data-move-block]').each(function() {
-          $self = $(this);
-          if ($self.attr('data-move-block') === 'up') {
-            $self.children('i').toggleClass('icon-double-angle-up');
-            $self.attr('data-move-block', 'top');
-          } else if ($self.attr('data-move-block') === 'down') {
-            $self.children('i').toggleClass('icon-double-angle-down');
-            $self.attr('data-move-block', 'bottom');
-          }
-          modifierOn = true;
-        });
-      }
-    });
-
-    $('body').on('keyup', function(e) {
-      if (modifierOn === true) {
-        $('[data-move-block]').each(function() {
-          $self = $(this);
-          $self.children('i').removeClass('icon-double-angle-up');
-          $self.children('i').removeClass('icon-double-angle-down');
-          if ($self.attr('data-move-block') === 'top') {
-            $self.attr('data-move-block', 'up');
-          } else if ($self.attr('data-move-block') === 'bottom') {
-            $self.attr('data-move-block', 'down');
-          }
-          modifierOn = false;
-        });
-      }
-    });
-
     $el.on('click', '[data-switch-block]', function() {
       $('body').trigger('aposCloseMenus');
     });
@@ -167,7 +175,7 @@ function AposBlocks() {
       }
       $('body').trigger('aposCloseMenus');
       if (!opened) {
-        $(this).closest('.apos-block-group-controls').toggleClass('open');
+        $(this).closest('.apos-block-group-controls').toggleClass('open', true);
         $(this).next('[data-content-blocks-menu-options]').toggleClass('open', true);
       }
 
@@ -175,12 +183,6 @@ function AposBlocks() {
     $el.on('click', '[data-new-block]', function() {
       $('body').trigger('aposCloseMenus');
     });
-    $('body').on('aposCloseMenus', function() {
-      $('[data-content-blocks-menu-options]').toggleClass('open', false);
-      $('.apos-block-group-controls').toggleClass('open', false);
-      $('[data-content-blocks-menu]').toggleClass('open', false);
-    });
-
   };
 
   // We just did something that might introduce new areas into the DOM, so
@@ -220,7 +222,7 @@ function AposBlocks() {
       }
     );
     // return;
-  }
+  };
 
   self.auto = function() {
     // For blocks present at page load
