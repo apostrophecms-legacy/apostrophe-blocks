@@ -1,6 +1,6 @@
 {
   "name": "apostrophe-blocks",
-  "version": "0.5.46",
+  "version": "0.5.47",
   "description": "Allows a column of content to be broken up into blocks with independent templates, allowing for sub-columns to alternate with a full width column for instance. Blocks can be added and removed freely.",
   "main": "index.js",
   "scripts": {
