@@ -14,37 +14,31 @@ function AposBlocks() {
     });
 
     // listen for editor modifier keys
-    var modifierOn = false;
-    $('body').on('keydown', function(e) {
-      if (e.keyCode === 16) {
-        $('[data-move-block]').each(function() {
-          var $self = $(this);
-          if ($self.attr('data-move-block') === 'up') {
-            $self.children('i').toggleClass('icon-double-angle-up');
-            $self.attr('data-move-block', 'top');
-          } else if ($self.attr('data-move-block') === 'down') {
-            $self.children('i').toggleClass('icon-double-angle-down');
-            $self.attr('data-move-block', 'bottom');
-          }
-          modifierOn = true;
-        });
-      }
+
+    apos.on('shiftDown', function() {
+      $('[data-move-block]').each(function() {
+        var $self = $(this);
+        if ($self.attr('data-move-block') === 'up') {
+          $self.children('i').toggleClass('icon-double-angle-up');
+          $self.attr('data-move-block', 'top');
+        } else if ($self.attr('data-move-block') === 'down') {
+          $self.children('i').toggleClass('icon-double-angle-down');
+          $self.attr('data-move-block', 'bottom');
+        }
+      });
     });
 
-    $('body').on('keyup', function(e) {
-      if (modifierOn === true) {
-        $('[data-move-block]').each(function() {
-          var $self = $(this);
-          $self.children('i').removeClass('icon-double-angle-up');
-          $self.children('i').removeClass('icon-double-angle-down');
-          if ($self.attr('data-move-block') === 'top') {
-            $self.attr('data-move-block', 'up');
-          } else if ($self.attr('data-move-block') === 'bottom') {
-            $self.attr('data-move-block', 'down');
-          }
-          modifierOn = false;
-        });
-      }
+    apos.on('shiftUp', function() {
+      $('[data-move-block]').each(function() {
+        var $self = $(this);
+        $self.children('i').removeClass('icon-double-angle-up');
+        $self.children('i').removeClass('icon-double-angle-down');
+        if ($self.attr('data-move-block') === 'top') {
+          $self.attr('data-move-block', 'up');
+        } else if ($self.attr('data-move-block') === 'bottom') {
+          $self.attr('data-move-block', 'down');
+        }
+      });
     });
   });
 
