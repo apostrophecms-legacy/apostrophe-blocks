@@ -207,7 +207,7 @@ function AposBlocks() {
 
   self.auto = function() {
     // For blocks present at page load
-    $('body').on('aposReady', function() {
+    apos.on('ready', function() {
       aposBlocks.enableAll();
     });
   };
