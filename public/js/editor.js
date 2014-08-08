@@ -79,7 +79,7 @@ function AposBlocks() {
           $blockWrapper.attr('data-id', result.id);
           $blockWrapper.find('[data-block]').html($html);
           $blocks.append($blockWrapper);
-          self.triggerAposReady();
+          apos.emit('ready');
         }
       );
       return false;
@@ -102,7 +102,7 @@ function AposBlocks() {
           }
           var $html = $.parseHTML(result.html);
           $blockWrapper.find('[data-block]').html($html);
-          self.triggerAposReady();
+          apos.emit('ready');
         }
       );
       return false;
@@ -182,19 +182,6 @@ function AposBlocks() {
     });
     $el.on('click', '[data-new-block]', function() {
       $('body').trigger('aposCloseMenus');
-    });
-  };
-
-  // We just did something that might introduce new areas into the DOM, so
-  // trigger aposReady and anything else that isn't yet smart enough to just listen
-  // for aposReady (ideally, nothing, but so far, enablePlayers).
-
-  self.triggerAposReady = function() {
-    $(function() {
-      // TODO we should refactor enablePlayers so it is just one more thing
-      // triggered automatically by aposReady
-      apos.enablePlayers();
-      $('body').trigger('aposReady');
     });
   };
 
