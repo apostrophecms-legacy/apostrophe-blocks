@@ -10,6 +10,7 @@ function AposBlocks() {
       $('[data-content-blocks-menu-options]').toggleClass('open', false);
       $('[data-content-block-menu-options]').toggleClass('open', false);
       $('.apos-block-group-controls').toggleClass('open', false);
+      $('.apos-block-controls').toggleClass('open', false);
       $('[data-content-blocks-menu]').toggleClass('open', false);
     });
 
