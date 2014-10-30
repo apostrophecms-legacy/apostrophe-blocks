@@ -49,15 +49,15 @@ function Blocks(options, callback) {
         if (Array.isArray(arguments[2])) {
           options.types = arguments[2];
           if (arguments[3]) {
-            _.merge(options, arguments[3]);
+            _.extend(options, arguments[3]);
           }
         } else {
-          _.merge(options, arguments[2]);
+          _.extend(options, arguments[2]);
         }
       }
     }
     var data = {};
-    _.merge(data, options);
+    _.extend(data, options);
     data.blocks = (options.page.blockGroups && options.page.blockGroups[options.group] && options.page.blockGroups[options.group].blocks) || [];
     data.types = _.filter(self._types, function(type) {
       return _.contains(options.types, type.name);
