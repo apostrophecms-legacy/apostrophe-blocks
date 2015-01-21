@@ -1,6 +1,6 @@
 {% macro renderBlock(page, group, block, extraClasses) %}
   {% if page._edit %}
-    <div {% if block.id %}data-id="{{ block.id }}"{% endif %} class="{{ extraClasses }} apos-block-wrapper" data-block-wrapper>
+    <div {% if block.id %}data-id="{{ block.id }}"{% endif %} class="{{ extraClasses }} apos-block-wrapper"{% if block.type %} data-type="{{block.type}}"{% endif %} data-block-wrapper>
       <div class="apos-block-controls apos-ui-container" data-block-controls>
         <span class="apos-ui-btn-group">
           <a class="apos-button apos-ui-btn" href="#" data-block-handle><i class="icon-move"></i></a>{#
@@ -12,7 +12,7 @@
           <span data-content-block-menu-toggle class="apos-ui-btn apos-button apos-ui-dropdown"><i class="icon-reorder"></i>&nbsp;Layout</span>
             <ul {% if block.id %}data-id="{{ block.id }}"{% endif %} class="apos-editor2-content-menu-options apos-block-menu-options apos-ui-menu" data-content-block-menu-options>
             {% for type in types %}
-              <li href="#" data-switch-block data-type="{{ type.name | e }}">
+              <li href="#" {% if type.name == block.type %} class="active"{% endif %} data-switch-block data-type="{{ type.name | e }}">
                 {% if type.icon %}<i class="icon {{type.icon}}"></i>{% endif %}
                 {{ type.label | e }}
               </li>
