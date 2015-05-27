@@ -77,6 +77,7 @@ function AposBlocks() {
           apos.emit('ready');
         }
       );
+      apos.emit('newBlock');
       return false;
     });
 
