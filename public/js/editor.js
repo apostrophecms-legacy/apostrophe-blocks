@@ -49,9 +49,9 @@ function AposBlocks() {
     }
     $el.data('aposBlocksEnabled', true);
 
-    var $blocks = $el.find('[data-apos-blocks]');
+    var $blocks = $el.findSafe('[data-apos-blocks]','[data-block-group]');
     var slug = $el.attr('data-slug');
-    var $template = $el.find('[data-block-wrapper].apos-template');
+    var $template = $el.findSafe('[data-block-wrapper].apos-template','[data-block-group]');
     $template.remove();
     var group = $el.attr('data-block-group');
     var types = apos.data.blockTypes;
@@ -133,10 +133,11 @@ function AposBlocks() {
         $(this).closest('.apos-block-controls').toggleClass('open', true);
         $(this).next('[data-content-block-menu-options]').toggleClass('open', true);
       }
+      return false;
     });
 
     $el.on('click', '[data-move-block]', function() {
-      var $wrapper = $(this).parents('[data-block-wrapper]');
+      var $wrapper = $(this).closest('[data-block-wrapper]');
       var direction = $(this).attr('data-move-block');
 
       if (direction === 'up') {
@@ -174,6 +175,7 @@ function AposBlocks() {
         $(this).closest('.apos-block-group-controls').toggleClass('open', true);
         $(this).next('[data-content-blocks-menu-options]').toggleClass('open', true);
       }
+      return false;
 
     });
     $el.on('click', '[data-new-block]', function() {
