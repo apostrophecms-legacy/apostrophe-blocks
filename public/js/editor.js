@@ -72,6 +72,7 @@ function AposBlocks() {
           var $blockWrapper = $template.clone();
           $blockWrapper.removeClass('apos-template');
           $blockWrapper.attr('data-id', result.id);
+          $blockWrapper.attr('data-type', result.type);
           $blockWrapper.find('[data-block]').html($html);
           $blocks.append($blockWrapper);
           apos.emit('ready');
@@ -98,6 +99,7 @@ function AposBlocks() {
           }
           var $html = $.parseHTML(result.html);
           $blockWrapper.find('[data-block]').html($html);
+          $blockWrapper.attr('data-type', result.type);
           apos.emit('ready');
         }
       );
