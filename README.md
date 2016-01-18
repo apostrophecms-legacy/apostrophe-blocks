@@ -79,3 +79,7 @@ Also works with Singletons:
 Blocks cannot be edited inside the modal dialog boxes for editing blog posts, events, etc. However, you may introduce them in the `show.html` templates for such things.
 
 Since blocks are inherently very much a WYSIWYG beast, we feel it would not be worth the considerable effort required to make them work in modals.
+
+## Changelog
+
+0.5.58: when `workflow: true` is set globally in `app.js` and the `apostrophe-workflow` module is in use, this module now plays along, ensuring that workflow applies to adding, removing, and reordering blocks and that there are no sneaky ways to get your new text approved by changing the block type.
