@@ -128,7 +128,7 @@ function Blocks(options, callback) {
           type: type,
           id: id
         });
-        return self._apos.putPage(req, slug, page, callback);
+        return self._apos.putPage(req, slug, { workflow:[ 'blockGroups' ] }, page, callback);
       }
     }, function(err) {
       if (err) {
@@ -189,7 +189,7 @@ function Blocks(options, callback) {
             block.type = type;
           }
         });
-        return self._apos.putPage(req, slug, page, callback);
+        return self._apos.putPage(req, slug, { workflow: [ 'blockGroups' ] }, page, callback);
       }
     }, function(err) {
       if (err) {
@@ -228,7 +228,7 @@ function Blocks(options, callback) {
         page.blockGroups[group].blocks = _.filter(page.blockGroups[group].blocks, function(block) {
           return (block.id !== id);
         });
-        return self._apos.putPage(req, slug, page, callback);
+        return self._apos.putPage(req, slug, { workflow: [ 'blockGroups' ] }, page, callback);
       }
     }, function(err) {
       if (err) {
@@ -264,7 +264,7 @@ function Blocks(options, callback) {
           return callback('notfound');
         }
         page.blockGroups[group].blocks = self._apos.orderById(ids, page.blockGroups[group].blocks, 'id');
-        return self._apos.putPage(req, slug, page, callback);
+        return self._apos.putPage(req, slug, { workflow: [ 'blockGroups' ] }, page, callback);
       }
     }, function(err) {
       if (err) {
