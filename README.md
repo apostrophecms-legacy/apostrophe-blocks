@@ -1,3 +1,7 @@
+# ⛔️ **DEPRECATED** — do not use for new projects
+
+See [our current docs](https://docs.apostrophecms.org/)
+
 # apostrophe-blocks
 
 `apostrophe-blocks` allows users to alternate one-column and two-column blocks in a single page on an [apostrophe-sandbox](https://github.com/apostrophe-sandbox)-powered website. Users may opt to have just a single one-column block, or a single two-column block, or a mix of the two.
